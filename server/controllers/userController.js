@@ -11,7 +11,6 @@ let connection = mysql.createConnection({
 
 // View Users
 exports.showusers_Page = async(req, res) => {
-    return res.redirect("/product");
 
     // if come this URL with no authentication reject him!
     if (!req.session.role) {
