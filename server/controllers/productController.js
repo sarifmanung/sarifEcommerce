@@ -124,3 +124,22 @@ exports.editProduct = async(req, res) => {
         }
     );
 }
+
+exports.update = async(req, res) => {
+
+    const { product_name, price, stock_quantity, description } = req.body
+
+    connection.query(
+        "UPDATE calendar_products SET product_name = ?, price = ?, stock_quantity = ?, description = ?  WHERE product_id = ?", [
+            product_name, price, stock_quantity, description, req.params.id,
+        ],
+        (err, rows) => {
+
+            if (!err) {
+                return res.redirect("/product");
+            } else {
+                console.error(err);
+            }
+        }
+    );
+}

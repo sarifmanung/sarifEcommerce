@@ -15,6 +15,8 @@ const productController = require("../controllers/productController");
 router.get("/product", productController.productPage);
 // editproduct
 router.get("/editproduct/:id", productController.editProduct);
+// editproduct
+router.post("/editproduct/:id", productController.update);
 
 // Admin Controller
 router.get("/", adminController.login_Page);
