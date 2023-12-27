@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Scan</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    {{!-- ajax --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{!-- favicon --}}
+    <link rel="icon" href="/img/favicon.png" sizes="32x32" />
+    <link rel='stylesheet' id='index-css' href='/css/scan-page.css' type='text/css' media='all' />
+    {{!-- use Jquery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+    <!-- Header -->
+
+    <div id="headder-main-body" class="container pt-5 pb-5">
+        <div class="container" style="margin-top: -60px;">
+            <div class="body d-md-flex align-items-center justify-content-between">
+                <div id="main-img" class="box-1 mt-md-0" style="">
+                    <img src="/img/Dr Clear Aligners About Us.jpg" class="" alt="">
+                </div>
+                <div class=" box-2 d-flex flex-column h-100">
+                    <div id="main-body" class="mt-0">
+                        <div style="text-align:center;">
+                            <p id="scan_page_title" class="mb-1 h-1" style="color: #1a1f6b;"> QR Code scanner</p>
+                        </div>
+                        <div style="text-align:center;">
+                            <p class="mb-1 h-1" style="color: #bf1212;">{{alert}}</p>
+                        </div>
+                        <div class="d-flex flex-column " style="align-items: center;">
+                            <div class="d-flex align-items-center">
+                                <a id="" href="/new_scanner" class="box me-2 selectio">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto"
+                                        fill="currentColor" class="bi bi-upc-scan" viewBox="0 0 16 16">
+                                        <path
+                                            d="M1.5 1a.5.5 0 0 0-.5.5v3a.5.5 0 0 1-1 0v-3A1.5 1.5 0 0 1 1.5 0h3a.5.5 0 0 1 0 1h-3zM11 .5a.5.5 0 0 1 .5-.5h3A1.5 1.5 0 0 1 16 1.5v3a.5.5 0 0 1-1 0v-3a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 1-.5-.5zM.5 11a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h3a.5.5 0 0 1 0 1h-3A1.5 1.5 0 0 1 0 14.5v-3a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v3a1.5 1.5 0 0 1-1.5 1.5h-3a.5.5 0 0 1 0-1h3a.5.5 0 0 0 .5-.5v-3a.5.5 0 0 1 .5-.5zM3 4.5a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7zm2 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-7zm3 0a.5.5 0 0 1 1 0v7a.5.5 0 0 1-1 0v-7z" />
+                                    </svg>
+                                </a>
+                            </div><br>
+                            {{!-- type barcode normally --}}
+                            <form class="mb-2" action="javascript:void(0);" onsubmit="checkbarcode()"
+                                style="width:100%">
+                                <div id="" class="row" style="padding-right:4.5%">
+                                    <div class="col-10">
+                                        <input id="scan_page_type_code_input_data" type="text" class="form-control"
+                                            placeholder="xx-xx-xxxxx" name="type_barcode">
+                                    </div>
+                                    <button class="col-2 btn btn-primary justify-content-end"><i
+                                            class="bi bi-search"></i></button>
+                                </div>
+                            </form>
+
+                            {{!-- <form class="form-inline" action="checkbarcode()">
+                                <div class="form-group  mb-2">
+                                    <input type="text" class="form-control" id="scan_page_type_code_input_data"
+                                        placeholder="xx-xx-xxxxx">
+                                    <button type="submit" class="btn btn-primary mb-2">Confirm identity</button>
+                                </div>
+                            </form> --}}
+
+                            <div class="row">
+                                {{!-- new input file --}}
+                                <div class="input-group mb-3 col-12">
+                                    <input type="file" class="form-control" id="qr-input-file" accept="image/*">
+                                </div>
+                            </div>
+                            <div class="mt-3">
+                                <a id="qrcode-result" class="qrcode-result"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="qr-reader" width="100%" height="auto"></div>
+                    <div class="mt-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('#header').load('/header');
+        $('#footer').load('/footer');
+    </script>
+
+    {{#if hidestaff}}
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const staff = document.getElementById('header-staff');
+            const search = document.getElementById('navbar-search');
+            const btn = document.getElementById('navbar-search-btn');
+
+            staff.style.display = 'none';
+            search.style.display = 'none';
+            btn.style.display = 'none';
+        });
+    </script>
+    {{/if}}
+
+    {{!-- will hide the title if wrong barcode --}}
+    {{#if alert}}
+    <script>
+        let scan_page_title = document.getElementById('scan_page_title');
+        scan_page_title.style.display = 'none'
+    </script>
+    {{/if}}
+    <!-- include the library -->
+    <script src="https://unpkg.com/html5-qrcode@2.0.9/dist/html5-qrcode.min.js"></script>
+
+    {{!-- backend scanner page --}}
+    <script>
+        // file-scanner
+        const html5QrCode = new Html5Qrcode("qr-reader");
+        // File based scanning
+        const fileinput = document.getElementById('qr-input-file');
+
+        fileinput.addEventListener('change', e => {
+            if (e.target.files.length == 0) {
+                // No file selected, ignore 
+                return;
+            }
+            const imageFile = e.target.files[0];
+            // Scan QR Code
+            html5QrCode.scanFile(imageFile, true)
+                .then(decodedText => {
+                    // success, use decodedText
+                    document.getElementById("qrcode-result").innerHTML = (decodedText);
+                    // send data to backend
+                    senddata(decodedText);
+                })
+                .catch(err => {
+                    // failure, handle it.
+                    console.log(`Error scanning file. Reason: ${err}`)
+                    // alert(err)
+                    //  location.reload();
+                    let alert = encodeURIComponent('Cant read code from Img!, pls try again');
+                    window.location.href = '/scan-page/?alert=' + alert
+                });
+        });
+
+        // Send barcode for check in backend
+        function senddata(decodedText) {
+            //   let decodedText = Number(decodedText);
+            console.log(decodedText)
+            if (decodedText) {
+                window.location.href = '/decodedText/' + decodedText;
+            }
+            else {
+                alert('Cant find member with this barcode');
+                console.log(err)
+                window.location.href = '/scan-page'
+            }
+
+            //       let id = Number(decodedText);
+            //     console.log(id)
+            //     if (id) {
+            //         window.location.href = '/viewuser/' + id;
+            //     }
+            //      else {
+            //          alert('Cant find member with this barcode');
+            //         window.location.href = '/scan-page'
+            //      }
+        }
+    </script>
+    {{!-- select method scanner --}}
+    <script>
+        //    $(document).ready(function () {
+        //       $("#scan_page_type_code").hide();
+        //       $("#scan_page_select_file_input").hide();
+
+        //       $("#scan_page_select_file").click(function () {
+        //           $("#scan_page_select_file_input").show();
+        //           $("#scan_page_type_code_input").hide();
+        //           $("#scan_page_select_file").hide();
+        //           $("#scan_page_type_code").show();
+        //      })
+        //       $("#scan_page_type_code").click(function () {
+        //           $("#scan_page_select_file_input").hide();
+        //           $("#scan_page_type_code_input").show();
+        //           $("#scan_page_select_file").show();
+        //          $("#scan_page_type_code").hide();
+        //       })
+        //   });
+
+        function checkbarcode() {
+            let decodedText = $('#scan_page_type_code_input_data').val()
+            //  alert(decodedText)
+            senddata(decodedText);
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

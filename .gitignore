@@ -1,0 +1,7 @@
+node_modules/
+package-lock.json
+logs.txt
+.env
+access.log
+404.log
+actionsLog.log

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Membership Register</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    {{!-- ajax --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{!-- favicon --}}
+    <link rel="icon" href="/img/favicon.png" sizes="32x32" />
+    <link rel='stylesheet' id='index-css' href='/css/register_page.css' type='text/css' media='all' />
+    {{!-- use Jquery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+</head>
+
+<body>
+    <!-- Header -->
+    <div id="header"></div>
+    <!-- Header -->
+
+    <div id="headder-main-body" class="container pt-5 pb-5">
+        {{!-- --}}
+        <section id="header-main-body2" class="register_form_pattern">
+            <div class="register_form_geeks">
+                <div class="register_logo_header">
+                    <img src="/img/member-registration-icon.png" alt="">
+                </div>
+                <div class="register_title">
+                    <h1 style="margin-bottom:0;">Membership</h1>
+                    <h1>Registration</h1>
+                </div>
+            </div>
+        </section>
+        <section class="">
+            <form class="row g-3 needs-validation register_form" method="POST" action="/register">
+
+                {{#if alert}}
+                <p class="success" style="text-align: center;">{{alert}}</p>
+                {{/if}}
+                {{#if message}}
+                <p class="success" style="text-align: center;">{{message}}</p>
+                {{/if}}
+
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" value="{{first_name}}"
+                            placeholder="Name" name="first_name" required>
+                        <label for="floatingInput">First Name</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" value="{{last_name}}"
+                            placeholder="last_name" name="last_name" required>
+                        <label for="floatingInput">Last Name</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="edit-user-dob" value="{{DOB_format}}"
+                            placeholder="dd-mm-yyyy" name="DOB" required>
+                        <label for="floatingInput">D.O.B</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="phoneInput" value="+60 {{phone_number}}"
+                            placeholder="Phone" name="phone_number" required>
+                        <label for="floatingInput">Phone Number</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control" id="floatingInput" value="{{email}}"
+                            placeholder="email" name="email" required>
+                        <label for="floatingInput">Email</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" value="{{IC}}" placeholder="IC"
+                            name="IC" required>
+                        <label for="floatingInput">NRIC</label>
+                    </div>
+                </div>
+                <div class="col-12 shadow">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput" value="{{app_id_number}}"
+                            placeholder="app_id_number" name="app_id_number" required>
+                        <label for="floatingInput">App ID Number</label>
+                    </div>
+                </div>
+                <div>
+                    <a class="register_where_id" href="#">Were can i get the ID Number?</a>
+                </div>
+                <div id="register_popup">
+                    <img src="/img/member-registration-guide.png">
+                </div>
+
+
+
+                <div class="col-12 d-grid register_btn">
+                    <button class="btn btn-success " type="submit">Submit Form</button>
+                </div>
+            </form>
+
+            {{!-- bottom img --}}
+            <img class="register_img_hand" src="img/member-registration-hands.png" alt="">
+
+        </section>
+        {{!-- --}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+
+    <script>
+        // Prevent the user from editing or selecting the "+60" prefix
+        const phoneInput = document.querySelector('#phoneInput');
+        phoneInput.addEventListener('input', function (event) {
+            const inputValue = event.target.value;
+            const selectionStart = event.target.selectionStart;
+            const selectionEnd = event.target.selectionEnd;
+
+            if (inputValue.startsWith('+60 ')) {
+                phoneInput.value = '+60 ' + inputValue.slice(4);
+            } else if (inputValue.startsWith('+60') && selectionStart <= 4 && selectionEnd <= 4) {
+                phoneInput.value = '+60 ';
+            } else {
+                phoneInput.value = '+60 ' + inputValue;
+            }
+
+            if (selectionStart < 4 && selectionEnd < 4) {
+                phoneInput.setSelectionRange(4, 4);
+            } else if (selectionStart <= 4) {
+                phoneInput.setSelectionRange(4, selectionEnd);
+            }
+        });
+    </script>
+
+    <script>
+        // Remove the "+60" prefix before submitting the form
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            const phoneInput = document.querySelector('#phoneInput');
+            phoneInput.value = phoneInput.value.replace('+60 ', '');
+        });
+    </script>
+
+    <script>
+        // Check if the page was loaded via a reload
+        if (performance.navigation.type === 1) {
+            // Get the current URL
+            let currentUrl = window.location.href;
+
+            // Check if the URL contains the 'alert' parameter
+            if (currentUrl.includes('alert')) {
+                // Remove the 'alert' parameter from the URL
+                currentUrl = currentUrl.replace(/[\?&]alert=[^&]+/, '');
+
+                // Reload the page with the modified URL
+                window.location.href = currentUrl;
+            }
+        }
+    </script>
+
+    <script>
+
+        // Get the link and the register_popup window
+        const link = document.querySelector('.register_where_id');
+        const register_popup = document.querySelector('#register_popup');
+
+        // Add an event listener to the link
+        link.addEventListener('click', function (event) {
+            // Prevent the default link behavior
+            event.preventDefault();
+
+            // Show the register_popup window
+            register_popup.style.display = 'block';
+
+            // Add a new event listener to the document that listens for clicks outside of the register_popup
+            const hidePopup = function (event) {
+                // If the clicked element is not inside the register_popup, hide the popup
+                if (event.target !== link && !register_popup.contains(event.target)) {
+                    register_popup.style.display = 'none';
+
+                    // Remove the event listener after hiding the popup
+                    document.removeEventListener('click', hidePopup);
+                }
+            };
+
+            document.addEventListener('click', hidePopup);
+        });
+
+        // Add an event listener to the register_popup window to hide it when clicked
+        register_popup.addEventListener('click', function (event) {
+            register_popup.style.display = 'none';
+        });
+
+    </script>
+
+    <script>
+
+        // Get the element with the id "headder-main-body"
+        let headerMainBody = document.getElementById("headder-main-body");
+        // Remove all classes from the element
+        headerMainBody.setAttribute("class", "");
+
+        // hide navbar 
+        let navbar = document.getElementById('main-navbar');
+        navbar.style.display = 'none';
+
+        // update boday background color
+        document.body.style.backgroundColor = "#e0ecf8";
+
+    </script>
+</body>
+
+</html>

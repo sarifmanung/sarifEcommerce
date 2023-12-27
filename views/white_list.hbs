@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membership</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+  {{!-- ajax --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  {{!-- favicon --}}
+  <link rel="icon" href="/img/favicon.png" sizes="32x32" />
+  <link rel='stylesheet' id='index-css' href='/css/index.css' type='text/css' media='all' />
+  {{!-- use Jquery --}}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
+
+  <style>
+    .page-link:hover {
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div id="header"></div>
+  <!-- Header -->
+
+  <div id="headder-main-body" class="container pt-5 pb-5">
+    <div class="row">
+      <div class="col-6">
+        <h1>WHITE LIST</h1>
+      </div>
+    </div>
+
+    <table class="table">
+      <thead class="thead-dark" style="background-color:#212529; color:#fff;">
+        <tr>
+          <th scope="col" class="home-desktop-only home-table-gray">ID</th>
+          <th scope="col" class="home-table-gray">FullName</th>
+          <th class=" home-table-gray" scope="col">Phone</th>
+          <th class="home-desktop-only home-table-gray" scope="col">App ID Number</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        {{#each rows}}
+        <tr>
+          <td class="home-desktop-only" scope="row">{{this.id}}</td>
+          <td>{{this.name}}</td>
+          <td>{{this.phone_number}}</td>
+          <td class="home-desktop-only">{{this.app_id_number}}</td>
+        </tr>
+        {{/each}}
+
+      </tbody>
+    </table>
+
+    <nav id="pagination" aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li id="previous_page" class="page-item">
+          <a class="page-link" onclick="backpage()">Previous</a>
+        </li>
+        <li clas="page-item ">
+          <a class="page-link currentpage"></a>
+        </li>
+        <li id="next_page" class="page-item">
+          <a class="page-link" onclick="nextpage()">Next</a>
+        </li>
+      </ul>
+    </nav>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript ">
+
+$(document).ready(async function() {
+  // load header content
+  await $('#header').load('/header');
+
+  // load footer content
+  await $('#footer').load('/footer');
+
+  // set action attribute for search form
+  const searchForm = await new Promise(resolve => {
+    const form = document.getElementById('search-data');
+    if (form) {
+      resolve(form);
+    } else {
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(mutation => {
+          const form = document.getElementById('search-data');
+          if (form) {
+            observer.disconnect();
+            resolve(form);
+          }
+        });
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+  });
+  // add action API
+  searchForm.action = '/search_white_list';
+});
+
+  if({{hidePagination}}){
+  var pagination = document.getElementById('pagination');
+  pagination.style.display = 'none';
+  }
+  </script>
+
+  <script>
+    // Get the current page number from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let page = parseInt(urlParams.get('page'), 10);
+
+    // Get last page
+    let lastPage = {{ lastPage }};
+
+    // If page number is not a valid integer, default to 1
+    if (isNaN(page) || page < 1) {
+      page = 1;
+    }
+
+    // Function to go to the previous page
+    function backpage() {
+      if (page == 1) {
+        return;
+      } else {
+        window.location.href = "/white_list?page=" + (page - 1);
+      }
+    }
+
+    // Function to go to the next page
+    function nextpage() {
+      if (page == lastPage) {
+        return;
+      } else {
+        window.location.href = "/white_list?page=" + (page + 1);
+      }
+    }
+
+    if (page == 1) {
+      var previous_page = document.getElementById('previous_page');
+      previous_page.classList.add('disabled');
+    }
+
+    if (page == lastPage) {
+      var next_page = document.getElementById('next_page');
+      next_page.classList.add('disabled');
+    }
+
+    // Set the text for the current page
+    document.querySelector('.currentpage').innerHTML = 'Current Page: ' + page;
+  </script>
+
+</body>
+
+</html>

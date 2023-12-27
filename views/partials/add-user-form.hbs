@@ -1,0 +1,86 @@
+{{#if check}}
+<div class="text-center mt-4 name">
+    <p>{{check}}</p>
+</div>
+{{/if}}
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{first_name}}" placeholder="first_name"
+            name="first_name" required>
+        <label for="floatingInput">Name</label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{last_name}}" placeholder="last_name"
+            name="last_name" required>
+        <label for="floatingInput">Last Name</label>
+    </div>
+</div>
+{{!-- <div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{barcode_number}}"
+            placeholder="barcode_number" name="barcode_number" required>
+        <label for="floatingInput">Barcode Details</label>
+    </div>
+</div> --}}
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{app_id_number}}"
+            placeholder="app_id_number" name="app_id_number" required>
+        <label for="floatingInput">App ID Number</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{IC}}" placeholder="IC" name="IC"
+            required>
+        <label for="floatingInput">NRIC</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="floatingInput" value="{{phone_number}}" placeholder="Phone"
+            name="phone_number" required>
+        <label for="floatingInput">Phone</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="floatingInput" value="{{email}}" placeholder="email"
+            name="email" required>
+        <label for="floatingInput">Email</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="edit-user-dob" value="{{DOB}}" placeholder="birthday"
+            name="DOB" required>
+        <label for="floatingInput">Birth</label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="floatingInput" value="{{treatment_start_date}}"
+            placeholder="treatment_start_date" name="treatment_start_date" required>
+        <label for="floatingInput">Start Treatment </label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="floatingInput" value="{{treatment_end_date}}"
+            placeholder="treatment_end_date" name="treatment_end_date"required >
+        <label for="floatingInput">End Treatment</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="floatingInput" value="{{membership_expire_date}}"
+            placeholder="membership_expire_date" name="membership_expire_date" required>
+        <label for="floatingInput">Expire Date </label>
+    </div>
+</div>
+
+<div class="col-12 d-grid">
+    <button class="btn btn-primary" type="submit">Submit</button>
+</div>

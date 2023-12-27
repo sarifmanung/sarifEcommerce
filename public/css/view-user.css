@@ -1,0 +1,29 @@
+.view-user-desktop {
+    /* display: block; */
+    display: none;
+}
+
+.view-user-mobile {
+    /* display: none; */
+    display: block;
+}
+
+.view-user-mobile {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.view-btn {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+/* @media (max-width: 1024px) {
+    .view-user-desktop {
+        display: none;
+    }
+
+    .view-user-mobile {
+        display: block;
+    }
+} */

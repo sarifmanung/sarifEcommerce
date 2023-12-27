@@ -1,0 +1,88 @@
+{{!-- desktop --}}
+<div class="view-user-desktop">
+  {{!-- --}}
+  <div class="row mb-5">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-start" scope="col">First Name</th>
+            <th class="text-center" scope="col">Last Name</th>
+            <th class="text-end" scope="col">Date Of Birth</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-start text-secondary" style="width:33%">{{this.first_name}}</td>
+            <td class="text-center text-secondary" style="width:33%">{{this.last_name}}</td>
+            <td class="text-end text-secondary" style="width:33%">{{this.DOB_format}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-start" scope="col">PHONE</th>
+            <th class="text-center" scope="col" style="">NRIC</th>
+            <th class="text-end" scope="col">EMAIL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-start text-secondary" style="width:33%">{{this.phone_number}}</td>
+            <td class="text-center text-secondary" style="width:33%">{{this.IC}}</td>
+            <td class="text-end text-secondary" style="width:33%">{{this.email}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="text-start" scope="col">Start Treatment Date </th>
+            <th class="text-center" scope="col" style="">End Treatment Date</th>
+            <th class="text-end" scope="col">Create Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-start text-secondary" style="width:33%">{{this.treatment_start_date_format}}</td>
+            <td class="text-center text-secondary" style="width:33%">{{this.treatment_end_date_format}}</td>
+            <td class="text-end text-secondary" style="width:33%">{{this.ts_format}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="row mb-5">
+    <div class="col">
+      <table class="table">
+        <thead>
+          <tr>
+            {{!-- <th class="text-start" scope="col">Barcode Number</th> --}}
+            <th class="text-end" scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {{!-- <td class="text-start text-secondary">{{this.barcode_number}}</td> --}}
+            <td class="text-end text-secondary">{{this.status}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {{!-- --}}
+</div>
+{{!-- desktop --}}

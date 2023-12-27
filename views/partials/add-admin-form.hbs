@@ -1,0 +1,69 @@
+{{#if check}}
+<div class="text-center mt-4 name">
+    <p>{{check}}</p>
+</div>
+{{/if}}
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="first_name" value="{{this.first_name}}" placeholder="first_name"
+            name="first_name" required>
+        <label for="floatingInput">First Name</label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="last_name" value="{{this.last_name}}" placeholder="last_name"
+            name="last_name" required>
+        <label for="floatingInput">Last Name</label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="user_name" value="{{this.user_name}}" placeholder="user_name"
+            name="user_name" required>
+        <label for="floatingInput">User Name</label>
+    </div>
+</div>
+<div class="col-6">
+    <div class="form-floating mb-3">
+        <input type="password" class="form-control" id="password" value="{{this.password}}" placeholder="password"
+            name="password" pattern=".{8,}" required title="8 characters minimum"> <label
+            for="floatingInput">Password</label>
+    </div>
+</div>
+<div class="col-12">
+    <select name="role" class="form-select form-select-lg mb-3" required>
+        <option value="admin">Admin</option>
+        <option value="merchant">Merchant</option>
+    </select>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="Phone" value="{{this.phone_number}}" placeholder="Phone"
+            name="phone_number" required>
+        <label for="floatingInput">Phone</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="email" class="form-control" id="email" value="{{this.email}}" placeholder="email" name="email"
+            required>
+        <label for="floatingInput">Email</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="IC" value="{{this.IC}}" placeholder="IC" name="IC" required>
+        <label for="floatingInput">NRIC</label>
+    </div>
+</div>
+<div class="col-12">
+    <div class="form-floating mb-3">
+        <input type="date" class="form-control" id="DOB" value="{{format_DOB}}" placeholder="DOB" name="DOB" required>
+        <label for="floatingInput">Date Of Birth</label>
+    </div>
+</div>
+
+<div class="col-12 d-grid">
+    <button class="btn btn-primary">Submit</button>
+</div>
