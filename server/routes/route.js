@@ -11,12 +11,14 @@ const productController = require("../controllers/productController");
 // Routes
 
 //Product Controller
-
 router.get("/product", productController.productPage);
 // editproduct
 router.get("/editproduct/:id", productController.editProduct);
 // editproduct
 router.post("/editproduct/:id", productController.update);
+// shopping product page
+router.get("/shopping", productController.shoppingPage);
+
 
 // Admin Controller
 router.get("/", adminController.login_Page);

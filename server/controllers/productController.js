@@ -29,24 +29,39 @@ function Date_format(date) {
     // return back
     return formattedToday;
 }
+exports.shoppingPage = async(req, res) => {
+    // res.render("myshop")
+
+    connection.query(
+        `SELECT * FROM calendar_products`,
+        (err, rows) => {
+            // When done with the connection, release it
+            if (!err) {
+                res.render("myshop", { rows });
+            } else {
+                console.log(err);
+            }
+        }
+    );
+};
 
 exports.productPage = async(req, res) => {
 
 
     // if come this URL with no authentication reject him!
-    // if (!req.session.role) {
-    //     console.log("pls login first");
-    //     console.log("reject!");
-    //     return res.redirect("/");
-    // }
+    if (!req.session.role) {
+        console.log("pls login first");
+        console.log("reject!");
+        return res.redirect("/");
+    }
 
     // check if role => merchant will redirect to scan page straight
-    // if (req.session.role == "merchant") {
-    //     console.log("\nyou role : " + req.session.role + "\n");
-    //     console.log("merchant can only use scanner");
-    //     console.log("redirect to scanner page");
-    //     return res.redirect("/scan-page");
-    // }
+    if (req.session.role == "merchant") {
+        console.log("\nyou role : " + req.session.role + "\n");
+        console.log("merchant can only use scanner");
+        console.log("redirect to scanner page");
+        return res.redirect("/scan-page");
+    }
 
     // take data utilities
     let removedUser = req.query.removed;
