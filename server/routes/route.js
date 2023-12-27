@@ -13,6 +13,8 @@ const productController = require("../controllers/productController");
 //Product Controller
 
 router.get("/product", productController.productPage);
+// editproduct
+router.get("/editproduct/:id", productController.editProduct);
 
 // Admin Controller
 router.get("/", adminController.login_Page);
@@ -62,8 +64,8 @@ router.get("/header", otherController.header_page);
 
 // IF Wrong URL
 router.use("*", (req, res) => {
-  // redirect to 404 in future
-  res.status(404).redirect("/404");
+    // redirect to 404 in future
+    res.status(404).redirect("/404");
 });
 
 module.exports = router;

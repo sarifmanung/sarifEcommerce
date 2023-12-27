@@ -68,25 +68,25 @@
             <div class="col-6">
                 <h1>product page</h1>
             </div>
-            <div class="col-6 d-flex justify-content-end">
+            {{!-- <div class="col-6 d-flex justify-content-end">
                 <a href="/display-hide-user" type="button" class="btn btn-outline-warning align-self-center"><i
                         class="bi bi-person-dash-fill"></i><span class="action-icon">
                         deleted user</span></a>
                 <a href="/adduser" type="button" class="btn btn-primary align-self-center"><i
                         class="bi bi-person-plus-fill"></i><span class="action-icon"> add
                         user</span></a>
-            </div>
+            </div> --}}
         </div>
 
         <table class="table">
             <thead class="thead-dark" style="background-color:#212529; color:#fff;">
                 <tr>
                     <th scope="col" class="home-table-gray action-icon">ID</th>
-                    <th scope="col" class="home-table-gray">FullName</th>
-                    <th class="home-desktop-only home-table-gray" scope="col">NRIC</th>
-                    <th class="home-desktop-only home-table-gray" scope="col">Phone</th>
-                    {{!-- <th class="home-desktop-only home-table-gray" scope="col">Barcode</th> --}}
-                    <th class="home-desktop-only home-table-gray" scope="col">App ID</th>
+                    <th scope="col" class="home-table-gray">Name</th>
+                    <th scope="col" class="home-table-gray">Description</th>
+                    <th class="home-desktop-only home-table-gray" scope="col">Price</th>
+                    <th class="home-desktop-only home-table-gray" scope="col">Stock</th>
+                    {{!-- <th class="home-desktop-only home-table-gray" scope="col">App ID</th> --}}
                     <th scope="col" class="text-end home-table-gray">Action</th>
                 </tr>
             </thead>
@@ -94,22 +94,23 @@
 
                 {{#each rows}}
                 <tr>
-                    <th class="action-icon" scope="row">{{this.id}}</th>
-                    <td>{{this.first_name}} {{this.last_name}}</td>
-                    <td class="home-desktop-only">{{this.IC}}</td>
-                    <td class="home-desktop-only">{{this.phone_number}}</td>
-                    <td class="home-desktop-only">{{this.app_id_number}}</td>
+                    <th class="action-icon" scope="row">{{this.product_id}}</th>
+                    <td>{{this.product_name}}</td>
+                    <td>{{this.description}}</td>
+                    <td class="home-desktop-only">{{this.price}}</td>
+                    <td class="home-desktop-only">{{this.stock_quantity}}</td>
+                    {{!-- <td class="home-desktop-only">{{this.app_id_number}}</td> --}}
                     <td class="text-end">
-                        <a href="/viewuser/{{this.id}}" type="button" class="btn btn-secondary btn-small"><i
+                        {{!-- <a href="/viewuser/{{this.id}}" type="button" class="btn btn-secondary btn-small"><i
                                 class="bi bi-eye-fill"></i><span class="action-icon">
-                                View</span></a>
-                        <a href="/edituser/{{this.id}}" type="button" class="btn btn-warning btn-small"><i
+                                View</span></a> --}}
+                        <a href="/editproduct/{{this.product_id}}" type="button" class="btn btn-warning btn-small"><i
                                 class="bi bi-pencil-fill"></i><span class="action-icon"> Edit</span>
                         </a>
-                        <a href="/delete/{{this.id}}" type="button"
+                        {{!-- <a href="/delete/{{this.id}}" type="button"
                             class="btn btn-danger btn-small home-desktop-only-icon"><i
                                 class="bi bi-trash-fill"></i><span class="action-icon"> Delete</span>
-                        </a>
+                        </a> --}}
                     </td>
                 </tr>
                 {{/each}}
@@ -117,7 +118,7 @@
             </tbody>
         </table>
 
-        <nav id="pagination" aria-label="Page navigation example">
+        {{!-- <nav id="pagination" aria-label="Page navigation example">
             <ul class="pagination justify-content-center">
                 <li id="previous_page" class="page-item">
                     <a class="page-link" onclick="backpage()">Previous</a>
@@ -129,7 +130,7 @@
                     <a class="page-link" onclick="nextpage()">Next</a>
                 </li>
             </ul>
-        </nav>
+        </nav> --}}
 
     </div>
 

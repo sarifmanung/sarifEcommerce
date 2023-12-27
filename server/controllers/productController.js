@@ -34,19 +34,19 @@ exports.productPage = async(req, res) => {
 
 
     // if come this URL with no authentication reject him!
-    if (!req.session.role) {
-        console.log("pls login first");
-        console.log("reject!");
-        return res.redirect("/");
-    }
+    // if (!req.session.role) {
+    //     console.log("pls login first");
+    //     console.log("reject!");
+    //     return res.redirect("/");
+    // }
 
     // check if role => merchant will redirect to scan page straight
-    if (req.session.role == "merchant") {
-        console.log("\nyou role : " + req.session.role + "\n");
-        console.log("merchant can only use scanner");
-        console.log("redirect to scanner page");
-        return res.redirect("/scan-page");
-    }
+    // if (req.session.role == "merchant") {
+    //     console.log("\nyou role : " + req.session.role + "\n");
+    //     console.log("merchant can only use scanner");
+    //     console.log("redirect to scanner page");
+    //     return res.redirect("/scan-page");
+    // }
 
     // take data utilities
     let removedUser = req.query.removed;
@@ -77,7 +77,7 @@ exports.productPage = async(req, res) => {
     if (currentPage > 0 && currentPage <= lastPage) {
         // User the connection
         connection.query(
-            `SELECT * FROM customer WHERE status = "active" LIMIT ${perPage} OFFSET ${offset}`,
+            `SELECT * FROM calendar_products`,
             (err, rows) => {
                 // When done with the connection, release it
                 if (!err) {
@@ -101,3 +101,26 @@ exports.productPage = async(req, res) => {
         // res.redirect("/home");
     }
 };
+
+exports.editProduct = async(req, res) => {
+    // take data utilities
+    let check = req.query.check;
+    let hidestaff = req.session.role == "merchant";
+    // User the connection
+    connection.query(
+        "SELECT * FROM calendar_products WHERE product_id = ?", [req.params.id],
+        (err, rows) => {
+            if (!err) {
+                res.render("edit-product", {
+                    rows,
+                    check,
+                    hidestaff,
+                });
+            } else {
+                console.log(err);
+            }
+            console.log("\nedit page\n id : " + [req.params.id]);
+            // console.log('The data from user table: \n', rows);
+        }
+    );
+}
