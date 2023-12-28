@@ -4,17 +4,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Summary</title>
+    <title>ORDER SUMMARY</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    {{!-- ajax --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{!-- favicon --}}
+    <link rel="icon" href="/img/favicon.png" sizes="32x32" />
+    <link rel='stylesheet' id='index-css' href='/css/index.css' type='text/css' media='all' />
+    {{!-- use Jquery --}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
 </head>
 
 <body>
+    <!-- Header -->
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="home-table-gray navbar-brand" style="color: #9fa0a2;" href="/shopping">SHOPPING</a>
+            {{!-- <a class="home-table-gray navbar-brand" style="color: #9fa0a2;" href="/home">Membership</a> --}}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active btn btn-dark" style="color: #9fa0a2;" href="/cart" type="button">
+                            <i class=""></i><span class=""> CART</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Header -->
 
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <h2 class="text-center mb-4">Order Summary</h2>
+                <h2 class="text-center mb-4">ORDER SUMMARY</h2>
 
                 <!-- Order Details Table -->
                 <table class="table table-bordered">
