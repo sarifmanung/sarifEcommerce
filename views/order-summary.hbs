@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+
+<body>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h2 class="text-center mb-4">Order Summary</h2>
+
+                <!-- Order Details Table -->
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderDetailsBody">
+                        <!-- Data will be dynamically added here -->
+                    </tbody>
+                </table>
+
+                <!-- Total Price -->
+                <div class="text-right">
+                    <h4 id="totalPrice">Total Price: $0.00</h4>
+                </div>
+
+                <!-- Order Confirmation Button -->
+                <div class="text-center mt-4">
+                    {{!-- <button class="btn btn-primary">Confirm Order</button> --}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <script>
+        async function fetchOrderSummary() {
+            try {
+                const response = await fetch("/api/order-summary/", {
+                    method: 'GET'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch data. Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+                throw error; // Propagate the error for further handling if needed
+            }
+        }
+
+        async function renderOrderDetails() {
+            const data = await fetchOrderSummary();
+            const orderDetailsBody = document.getElementById('orderDetailsBody');
+            const totalPriceElement = document.getElementById('totalPrice');
+            let totalPrice = data.totalPrice;
+
+            // Clear existing rows
+            orderDetailsBody.innerHTML = '';
+
+            // Render new rows based on fetched data
+            data.orderDetails.forEach((detail) => {
+                const total = detail.quantity * detail.price;
+
+                const row = `<tr>
+                <td>${detail.product_name}</td>
+                <td>${detail.quantity}</td>
+                <td>$${detail.price.toFixed(2)}</td>
+                <td>$${total.toFixed(2)}</td>
+            </tr>`;
+
+                orderDetailsBody.innerHTML += row;
+            });
+
+            // Update total price
+            totalPriceElement.textContent = `Total Price: $${totalPrice.toFixed(2)}`;
+        }
+
+        // Example usage
+        renderOrderDetails().catch((error) => {
+            // Handle errors, if needed
+        });
+
+    </script>
+
+</body>
+
+</html>
