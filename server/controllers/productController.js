@@ -158,3 +158,9 @@ exports.update = async(req, res) => {
         }
     );
 }
+
+exports.cart = async(req, res) => {
+    res.render("cart")
+
+
+};
