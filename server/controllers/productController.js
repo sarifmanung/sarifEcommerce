@@ -65,15 +65,12 @@ exports.apiOrders = async(req, res) => {
 
         const { quantity1, quantity2, quantity3, quantity4 } = req.body;
 
-        console.log(quantity1, quantity2, quantity3, quantity4)
-
         // Check if any of the quantities have valid data
         if (quantity1 || quantity2 || quantity3 || quantity4) {
             // Begin a transaction
             connection.beginTransaction((transactionErr) => {
-                if (transactionErr) {
-                    throw transactionErr;
-                }
+
+                if (transactionErr) throw transactionErr;
 
                 try {
                     // Process each product quantity if it has valid data
@@ -90,14 +87,12 @@ exports.apiOrders = async(req, res) => {
 
                             // Update stock quantity for the current product
                             connection.query('UPDATE calendar_products SET stock_quantity = stock_quantity - ? WHERE product_id = ?', [productQuantity, productId], (updateErr) => {
-                                if (updateErr) {
-                                    throw updateErr;
-                                }
+                                if (updateErr) throw updateErr;
 
                                 // Add order item for the current product
                                 orderItems.push({ order_id: 0, product_id: productId, quantity: productQuantity, price: productPrice });
 
-                                // If this is the last product, proceed with inserting the order and order items
+                                // * If this is the last product, proceed with inserting the order and order items
                                 if (i === productQuantities.length - 1) {
                                     const total_price = calculateTotalPrice(orderItems);
                                     const order = { user_id: 1, total_price };
@@ -157,9 +152,7 @@ exports.apiOrders = async(req, res) => {
         return orderItems.reduce((total, item) => total + item.quantity * item.price, 0);
     }
 
-    // Function to get the price of a product based on product_id
     function getProductPrice(product_id) {
-        // Replace this with a function to fetch the product price from the database or use a predefined price
         switch (product_id) {
             case 1:
                 return 100.00;
@@ -169,7 +162,7 @@ exports.apiOrders = async(req, res) => {
                 return 10.00;
             case 4:
                 return 50.00;
-                // Add more cases if needed for other products
+
             default:
                 return 0.00;
         }
