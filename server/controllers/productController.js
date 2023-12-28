@@ -118,20 +118,22 @@ exports.apiOrders = async(req, res) => {
                                         });
 
                                         // Insert order items into the order_items table
-                                        connection.query('INSERT INTO order_items SET ?', [orderItems], (insertItemsErr) => {
-                                            if (insertItemsErr) {
-                                                throw insertItemsErr;
+                                        for (const item of orderItems) {
+                                            connection.query('INSERT INTO order_items SET ?', item, (insertItemErr) => {
+                                                if (insertItemErr) {
+                                                    throw insertItemErr;
+                                                }
+                                            });
+                                        }
+
+                                        // Commit the transaction
+                                        connection.commit((commitErr) => {
+                                            if (commitErr) {
+                                                throw commitErr;
                                             }
 
-                                            // Commit the transaction
-                                            connection.commit((commitErr) => {
-                                                if (commitErr) {
-                                                    throw commitErr;
-                                                }
-
-                                                console.log('Transaction committed successfully');
-                                                connection.end(); // Close the database connection
-                                            });
+                                            console.log('Transaction committed successfully');
+                                            connection.end(); // Close the database connection
                                         });
                                     });
                                 }
