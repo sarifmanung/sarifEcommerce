@@ -170,7 +170,74 @@ exports.apiOrders = async(req, res) => {
 
 };
 
-exports.ordersSummaryPage = async(req, res) => {}
+// Function to get the latest order from the orders table
+async function getOrderLatest() {
+    return new Promise((resolve, reject) => {
+        connection.query('SELECT * FROM orders ORDER BY order_id DESC LIMIT 1', (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+
+            if (results.length > 0) {
+                resolve(results[0]);
+            } else {
+                resolve(null);
+            }
+        });
+    });
+}
+// Function to get order summary
+async function getOrderSummary(orderId) {
+    try {
+        const orderDetails = await new Promise((resolve, reject) => {
+            connection.query(
+                'SELECT oi.*, p.product_name, p.price FROM order_items oi JOIN calendar_products p ON oi.product_id = p.product_id WHERE oi.order_id = ?', [orderId],
+                (err, results) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(results);
+                    }
+                }
+            );
+        });
+
+        const totalPrice = orderDetails.reduce((total, item) => total + item.quantity * item.price, 0);
+
+        return {
+            orderDetails,
+            totalPrice,
+        };
+    } catch (error) {
+        throw new Error(`Error fetching order summary: ${error.message}`);
+    }
+}
+
+// API route for order summary
+exports.ordersSummaryApi = async(req, res) => {
+    try {
+        // Fetch the latest order from the orders table
+        const latestOrder = await getOrderLatest();
+        console.log(latestOrder.order_id)
+
+        if (!latestOrder) {
+            console.log('No latest order found.');
+            return res.status(404).json({ error: 'No latest order found.' });
+        }
+
+        const orderSummary = await getOrderSummary(latestOrder.order_id);
+        console.log(orderSummary)
+        res.json(orderSummary);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: 'Internal Server Error\n' + error.message });
+    }
+}
+
+exports.ordersSummaryPage = async(req, res) => {
+    res.render('order-summary')
+}
+
 exports.productPage = async(req, res) => {
 
 

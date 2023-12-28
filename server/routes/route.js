@@ -20,8 +20,10 @@ router.post("/editproduct/:id", productController.update);
 router.get("/shopping", productController.shoppingPage);
 // post orders product
 router.post("/api/orders", productController.apiOrders);
-// order summary
-router.get("/api/ordersSummary", productController.ordersSummaryPage);
+// order summary page
+router.get("/order-summary/", productController.ordersSummaryPage);
+// api order summary
+router.get("/api/order-summary/", productController.ordersSummaryApi);
 // cart page
 router.get("/cart", productController.cart);
 
