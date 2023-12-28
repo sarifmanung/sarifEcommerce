@@ -45,10 +45,140 @@ exports.shoppingPage = async(req, res) => {
     );
 };
 
+// update order table
 exports.apiOrders = async(req, res) => {
-    const { quantity1, quantity2, quantity3, quantity4, } = req.body
-    console.log(quantity1, quantity2, quantity3, quantity4, )
+
+    const mysql = require('mysql');
+
+    // Create a connection to the database
+    const connection = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASS,
+        database: process.env.DB_NAME,
+    });
+
+    // Connect to the database
+    connection.connect((err) => {
+        if (err) {
+            console.error('Error connecting to the database:', err.message);
+            return;
+        }
+        console.log('Connected to the database');
+
+        // Assuming you have received the quantities from the request body
+        const { quantity1, quantity2, quantity3, quantity4 } = req.body;
+
+        console.log(quantity1, quantity2, quantity3, quantity4)
+
+        // Check if any of the quantities have valid data
+        if (quantity1 || quantity2 || quantity3 || quantity4) {
+            // Begin a transaction
+            connection.beginTransaction((transactionErr) => {
+                if (transactionErr) {
+                    throw transactionErr;
+                }
+
+                try {
+                    // Process each product quantity if it has valid data
+                    const productQuantities = [quantity1, quantity2, quantity3, quantity4];
+                    const orderItems = [];
+
+                    for (let i = 0; i < productQuantities.length; i++) {
+                        const quantity = productQuantities[i];
+
+                        if (quantity) {
+                            const productId = i + 1; // Assuming product_id starts from 1
+                            const productQuantity = parseInt(quantity, 10); // Assuming quantity is a string, convert it to an integer
+                            const productPrice = getProductPrice(productId);
+
+                            // Update stock quantity for the current product
+                            connection.query('UPDATE calendar_products SET stock_quantity = stock_quantity - ? WHERE product_id = ?', [productQuantity, productId], (updateErr) => {
+                                if (updateErr) {
+                                    throw updateErr;
+                                }
+
+                                // Add order item for the current product
+                                orderItems.push({ order_id: 0, product_id: productId, quantity: productQuantity, price: productPrice });
+
+                                // If this is the last product, proceed with inserting the order and order items
+                                if (i === productQuantities.length - 1) {
+                                    const total_price = calculateTotalPrice(orderItems);
+                                    const order = { user_id: 1, total_price };
+
+                                    // Insert a new order into the orders table
+                                    connection.query('INSERT INTO orders SET ?', order, (insertErr, result) => {
+                                        if (insertErr) {
+                                            throw insertErr;
+                                        }
+
+                                        // Update order_id for each order item
+                                        orderItems.forEach((item) => {
+                                            item.order_id = result.insertId;
+                                        });
+
+                                        // Insert order items into the order_items table
+                                        connection.query('INSERT INTO order_items SET ?', [orderItems], (insertItemsErr) => {
+                                            if (insertItemsErr) {
+                                                throw insertItemsErr;
+                                            }
+
+                                            // Commit the transaction
+                                            connection.commit((commitErr) => {
+                                                if (commitErr) {
+                                                    throw commitErr;
+                                                }
+
+                                                console.log('Transaction committed successfully');
+                                                connection.end(); // Close the database connection
+                                            });
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    }
+                } catch (error) {
+                    // If any error occurs, rollback the transaction
+                    connection.rollback(() => {
+                        console.error('Transaction rolled back due to an error:', error.message);
+                        connection.end(); // Close the database connection
+                    });
+                }
+            });
+        } else {
+            // No valid quantities provided, handle accordingly (send response, throw error, etc.)
+            console.log('No valid quantities provided.');
+            res.status(400).json({ error: 'No valid quantities provided.' });
+        }
+    });
+
+    // Function to calculate the total price based on order items
+    function calculateTotalPrice(orderItems) {
+        return orderItems.reduce((total, item) => total + item.quantity * item.price, 0);
+    }
+
+    // Function to get the price of a product based on product_id
+    function getProductPrice(product_id) {
+        // Replace this with a function to fetch the product price from the database or use a predefined price
+        switch (product_id) {
+            case 1:
+                return 100.00;
+            case 2:
+                return 80.00;
+            case 3:
+                return 10.00;
+            case 4:
+                return 50.00;
+                // Add more cases if needed for other products
+            default:
+                return 0.00;
+        }
+    }
+
 };
+
+exports.ordersSummaryPage = async(req, res) => {}
 exports.productPage = async(req, res) => {
 
 

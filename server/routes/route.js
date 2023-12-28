@@ -14,12 +14,14 @@ const productController = require("../controllers/productController");
 router.get("/product", productController.productPage);
 // editproduct
 router.get("/editproduct/:id", productController.editProduct);
-// editproduct
+// post editproduct
 router.post("/editproduct/:id", productController.update);
 // shopping product page
 router.get("/shopping", productController.shoppingPage);
 // post orders product
 router.post("/api/orders", productController.apiOrders);
+// order summary
+router.get("/api/ordersSummary", productController.ordersSummaryPage);
 // cart page
 router.get("/cart", productController.cart);
 
