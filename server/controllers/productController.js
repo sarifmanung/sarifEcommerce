@@ -48,9 +48,6 @@ exports.shoppingPage = async(req, res) => {
 // update order table
 exports.apiOrders = async(req, res) => {
 
-    const mysql = require('mysql');
-
-    // Create a connection to the database
     const connection = mysql.createConnection({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
@@ -66,7 +63,6 @@ exports.apiOrders = async(req, res) => {
         }
         console.log('Connected to the database');
 
-        // Assuming you have received the quantities from the request body
         const { quantity1, quantity2, quantity3, quantity4 } = req.body;
 
         console.log(quantity1, quantity2, quantity3, quantity4)
@@ -88,8 +84,8 @@ exports.apiOrders = async(req, res) => {
                         const quantity = productQuantities[i];
 
                         if (quantity) {
-                            const productId = i + 1; // Assuming product_id starts from 1
-                            const productQuantity = parseInt(quantity, 10); // Assuming quantity is a string, convert it to an integer
+                            const productId = i + 1; // product_id starts from 1
+                            const productQuantity = parseInt(quantity, 10); // quantity is a string, convert it to an integer
                             const productPrice = getProductPrice(productId);
 
                             // Update stock quantity for the current product
@@ -134,6 +130,7 @@ exports.apiOrders = async(req, res) => {
 
                                             console.log('Transaction committed successfully');
                                             connection.end(); // Close the database connection
+                                            res.send("ok")
                                         });
                                     });
                                 }
