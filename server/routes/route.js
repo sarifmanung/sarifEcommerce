@@ -18,6 +18,8 @@ router.get("/editproduct/:id", productController.editProduct);
 router.post("/editproduct/:id", productController.update);
 // shopping product page
 router.get("/shopping", productController.shoppingPage);
+// post orders product
+router.post("/api/orders", productController.apiOrders);
 // cart page
 router.get("/cart", productController.cart);
 

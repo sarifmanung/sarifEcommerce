@@ -33,7 +33,7 @@ exports.shoppingPage = async(req, res) => {
     // res.render("myshop")
 
     connection.query(
-        `SELECT * FROM calendar_products`,
+        `SELECT * FROM calendar_products where stock_quantity > 0`,
         (err, rows) => {
             // When done with the connection, release it
             if (!err) {
@@ -45,6 +45,10 @@ exports.shoppingPage = async(req, res) => {
     );
 };
 
+exports.apiOrders = async(req, res) => {
+    const { quantity1, quantity2, quantity3, quantity4, } = req.body
+    console.log(quantity1, quantity2, quantity3, quantity4, )
+};
 exports.productPage = async(req, res) => {
 
 
