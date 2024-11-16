@@ -27,7 +27,6 @@ router.get("/api/order-summary/", productController.ordersSummaryApi);
 // cart page
 router.get("/cart", productController.cart);
 
-
 // Admin Controller
 router.get("/", adminController.login_Page);
 router.post("/auth", adminController.auth);
@@ -58,13 +57,13 @@ router.get("/display-hide-user", userController.hideUser_Page);
 router.get("/test_format_date", userController.test_date_format);
 
 // Handler Scan and other
-// router.get('/scan-page', scanController.scan_Page);
+router.get("/scan-page", scanController.scan_Page);
 router.get("/scanner", scanController.scanner);
 router.get("/new_scanner", scanController.new_scanner);
 router.get("/decodedText/:decodedText", scanController.decodedText);
 router.get("/404", scanController.wrongUrl);
 router.get("/exit", scanController.exit);
-// router.get('/robots.txt', scanController.robots);
+// router.get("/robots.txt", scanController.robots);
 
 // Handler Other thing
 router.get("/register", otherController.register_Page);
@@ -76,8 +75,8 @@ router.get("/header", otherController.header_page);
 
 // IF Wrong URL
 router.use("*", (req, res) => {
-    // redirect to 404 in future
-    res.status(404).redirect("/404");
+  // redirect to 404 in future
+  res.status(404).redirect("/404");
 });
 
 module.exports = router;
