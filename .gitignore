@@ -5,3 +5,4 @@ logs.txt
 access.log
 404.log
 actionsLog.log
+.DS_Store
