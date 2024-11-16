@@ -11,19 +11,19 @@ const port = process.env.PORT;
 
 // Session middleware
 app.use(
-    session({
-        secret: "membership",
-        resave: false,
-        saveUninitialized: true,
-        cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
-    })
+  session({
+    secret: "membership",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 1 day
+  })
 );
 app.use(cors({ credentials: true, origin: true }));
 app.enable("trust proxy", 1);
 app.use(
-    morgan("common", {
-        stream: fs.createWriteStream("./access.log", { flags: "a" }),
-    })
+  morgan("common", {
+    stream: fs.createWriteStream("./access.log", { flags: "a" }),
+  })
 );
 
 // Body parsing middleware
