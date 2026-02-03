@@ -58,7 +58,7 @@ exports.auth = (req, res) => {
             // check password matches or not
             const passwordMatches = await comparePassword(
               password,
-              rows[0].password
+              rows[0].password,
             );
 
             // if password matches
@@ -103,7 +103,7 @@ exports.auth = (req, res) => {
           console.log(err);
           return res.redirect("/");
         }
-      }
+      },
     );
   } else {
     console.log("No username or password");
@@ -167,7 +167,7 @@ exports.show_admin_page = async (req, res) => {
         }
         // console.log('The data from user table: \n', rows);
         console.log("\nAdmin List page", currentPage, "\n");
-      }
+      },
     );
   } else {
     res.redirect("/admin-list");
@@ -240,7 +240,7 @@ exports.create = (req, res) => {
             console.log(rows.length);
             console.log("username is already exist\npls try again");
             let check = encodeURIComponent(
-              "username is already exist\npls try again"
+              "username is already exist\npls try again",
             );
             res.redirect("/add_admin?check=" + check);
             return res.end();
@@ -249,7 +249,7 @@ exports.create = (req, res) => {
         } else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkPhone
@@ -263,7 +263,7 @@ exports.create = (req, res) => {
             console.log(rows.length);
             console.log("Phone number is already exist\npls try again");
             let check = encodeURIComponent(
-              "Phone number is already exist\npls try again"
+              "Phone number is already exist\npls try again",
             );
             res.redirect("/add_admin?check=" + check);
             return res.end();
@@ -272,7 +272,7 @@ exports.create = (req, res) => {
         } else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkEmail
@@ -286,7 +286,7 @@ exports.create = (req, res) => {
             console.log(rows.length);
             console.log("Email is already exist\npls try again");
             let check = encodeURIComponent(
-              "Email is already exist\npls try again"
+              "Email is already exist\npls try again",
             );
             res.redirect("/add_admin?check=" + check);
             return res.end();
@@ -295,7 +295,7 @@ exports.create = (req, res) => {
         } else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkEmail
@@ -306,7 +306,7 @@ exports.create = (req, res) => {
           console.log(rows.length);
           console.log("NRIC is already exist\npls try again");
           let check = encodeURIComponent(
-            "NRIC is already exist\npls try again"
+            "NRIC is already exist\npls try again",
           );
           res.redirect("/add_admin?check=" + check);
           return res.end();
@@ -339,7 +339,7 @@ exports.create = (req, res) => {
         if (!err) {
           console.log("created " + role + " name : " + first_name);
           let name = encodeURIComponent(
-            "created " + role + " name : " + first_name
+            "created " + role + " name : " + first_name,
           );
 
           // save the actions
@@ -356,7 +356,7 @@ exports.create = (req, res) => {
           return res.redirect("/admin-list");
         }
         // console.log('The data from customer table: \n', rows);
-      }
+      },
     );
   }
 };
@@ -396,7 +396,7 @@ exports.admin_Page = (req, res) => {
             console.log(err);
           }
           // console.log('data of this user: \n', rows);
-        }
+        },
       );
     } else {
       console.log("Cant find member with this barcode");
@@ -433,7 +433,7 @@ exports.delete = (req, res) => {
     (err, rows) => {
       if (!err) {
         let removedUser = encodeURIComponent(
-          "\nID:" + req.params.id + " successeflly removed.\n"
+          "\nID:" + req.params.id + " successeflly removed.\n",
         );
 
         // save the actions
@@ -445,7 +445,7 @@ exports.delete = (req, res) => {
       } else {
         console.error(err);
       }
-    }
+    },
   );
 };
 
@@ -479,7 +479,7 @@ exports.edit_admin_Page = (req, res) => {
         console.log(err);
       }
       // console.log('The data from user table: \n', rows);
-    }
+    },
   );
 };
 
@@ -545,10 +545,10 @@ exports.update = (req, res) => {
                   if (rows.length > 0) {
                     console.log("username is already exist\npls try again");
                     let check = encodeURIComponent(
-                      "username is already exist\npls try again"
+                      "username is already exist\npls try again",
                     );
                     res.redirect(
-                      "/editadmin/" + req.params.id + "?check=" + check
+                      "/editadmin/" + req.params.id + "?check=" + check,
                     );
                     return res.end();
                   }
@@ -562,7 +562,7 @@ exports.update = (req, res) => {
                 else {
                   console.log(err);
                 }
-              }
+              },
             );
           }
         }
@@ -570,7 +570,7 @@ exports.update = (req, res) => {
         else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkPhone
@@ -601,10 +601,10 @@ exports.update = (req, res) => {
                   if (rows.length > 0) {
                     console.log("phone number is already exist\npls try again");
                     let check = encodeURIComponent(
-                      "phone number is already exist\npls try again"
+                      "phone number is already exist\npls try again",
                     );
                     res.redirect(
-                      "/editadmin/" + req.params.id + "?check=" + check
+                      "/editadmin/" + req.params.id + "?check=" + check,
                     );
                     return res.end();
                   }
@@ -618,7 +618,7 @@ exports.update = (req, res) => {
                 else {
                   console.log(err);
                 }
-              }
+              },
             );
           }
         }
@@ -626,7 +626,7 @@ exports.update = (req, res) => {
         else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkEmail
@@ -657,10 +657,10 @@ exports.update = (req, res) => {
                   if (rows.length > 0) {
                     console.log("email is already exist\npls try again");
                     let check = encodeURIComponent(
-                      "Email is already exist\npls try again"
+                      "Email is already exist\npls try again",
                     );
                     res.redirect(
-                      "/editadmin/" + req.params.id + "?check=" + check
+                      "/editadmin/" + req.params.id + "?check=" + check,
                     );
                     return res.end();
                   }
@@ -674,7 +674,7 @@ exports.update = (req, res) => {
                 else {
                   console.log(err);
                 }
-              }
+              },
             );
           }
         }
@@ -682,7 +682,7 @@ exports.update = (req, res) => {
         else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // checkIC
@@ -713,10 +713,10 @@ exports.update = (req, res) => {
                   if (rows.length > 0) {
                     console.log("IC is already exist\npls try again");
                     let check = encodeURIComponent(
-                      "IC is already exist\npls try again"
+                      "IC is already exist\npls try again",
                     );
                     res.redirect(
-                      "/editadmin/" + req.params.id + "?check=" + check
+                      "/editadmin/" + req.params.id + "?check=" + check,
                     );
 
                     return res.end();
@@ -731,7 +731,7 @@ exports.update = (req, res) => {
                 else {
                   console.log(err);
                 }
-              }
+              },
             );
           }
         }
@@ -739,7 +739,7 @@ exports.update = (req, res) => {
         else {
           console.log(err);
         }
-      }
+      },
     );
   }
   // update staff!
@@ -805,7 +805,7 @@ exports.update = (req, res) => {
               console.error(err);
             }
             console.log(`${first_name} has been updated.\n`);
-          }
+          },
         );
       } else {
         console.error(err);
@@ -843,7 +843,7 @@ exports.hideAdmin_Page = (req, res) => {
       }
       // console.log('The data from user table: \n', rows);
       console.log("\nshow all deleted admin (page)\n");
-    }
+    },
   );
 };
 
@@ -872,7 +872,7 @@ exports.restore = (req, res) => {
     (err, rows) => {
       if (!err) {
         let restored = encodeURIComponent(
-          "admin id:" + req.params.id + " successeflly restored."
+          "admin id:" + req.params.id + " successeflly restored.",
         );
 
         // save the actions
@@ -884,7 +884,7 @@ exports.restore = (req, res) => {
       } else {
         console.error(err);
       }
-    }
+    },
   );
 };
 
@@ -931,7 +931,7 @@ exports.white_list = async (req, res) => {
           console.log(err);
         }
         console.log("\nWhite List page ", currentPage, "\n");
-      }
+      },
     );
   } else {
     res.redirect("/white_list");
@@ -980,7 +980,7 @@ exports.search_staff = (req, res) => {
         console.log(err);
       }
       // console.log('The data from staff table: \n', rows);
-    }
+    },
   );
 };
 
@@ -1016,6 +1016,6 @@ exports.search_white_list = (req, res) => {
         console.log(err);
       }
       // console.log('The data from staff table: \n', rows);
-    }
+    },
   );
 };
